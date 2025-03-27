@@ -68,9 +68,7 @@ int getLineNumber() {
     return lineNumber;
 }
 
-int main() {
-    return 0;
-}
+#include <main.cpp>
 
 int yywrap(void) {
     return 1;
