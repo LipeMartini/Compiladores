@@ -1,8 +1,9 @@
 /*
-    UFRGS - 2025-1
-    Trabalho 1 - Compiladores
-    Autoria: Luís Filipe Martini Gastmann
+ *  UFRGS - Compiladores - 2025-1
+ *  Autoria: Luís Filipe Martini Gastmann
  */
+
+# include <stdio.h>
 
 #define KW_BYTE           256
 #define KW_INT            257
@@ -30,11 +31,19 @@
 
 #define TOKEN_ERROR       290
 
+%{
 int lineNumber = 1;
+int running = 1;
+}%
+
+%option nounput
+%option noinput
+%x COMMENT
+
 
 %%
 
-[a-z]               { [0-9]+ { yylval.sIndex = *yytext - 'a'; return VARIABLE; } } yylval.iValue = atoi(yytext); return INTEGER; 
+[a-z]               { [0-9]+ { yylval.sIndex = *yytext - 'a'; symbolInstert(2, yytext()); return VARIABLE; } } yylval.iValue = atoi(yytext); symbolInstert(1, yytext()); return INTEGER; 
 [-()>=+*/;{}.]      {return *yytext;} 
 ">="    return GE; 
 "<="    return LE; 
@@ -64,12 +73,21 @@ int lineNumber = 1;
 
 %%
 
+#include <main.cpp>
+
 int getLineNumber() { 
     return lineNumber;
 }
 
-#include <main.cpp>
-
 int yywrap(void) {
     return 1;
 } 
+
+
+/*
+    Entrega do etapa1.tgz
+    comando: lfmgastmann@html.inf.ufrgs.br
+    comando: ver slides...
+
+    Ao fim (dentro do diretório certo para fazer o put, dps do put) fazer: chmod 644 etapa1.tgz
+*/

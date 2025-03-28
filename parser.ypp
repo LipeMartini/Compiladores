@@ -1,0 +1,22 @@
+/*
+ *  UFRGS - Compiladores - 2025-1
+ *  etapa 2 !
+ *  Autoria: Luís Filipe Martini Gastmann
+ */
+
+
+%token TOKEN_ID
+
+
+ %%
+/* nos slides temos A->B, aqui temos A:B "\n" ;      */
+program: TOKEN_ID
+    ;
+
+
+
+ %%
+
+
+
+
