@@ -1,17 +1,16 @@
 /*
- * Compiladores - etapa1 - tokens.h - semestre 2025/1 - M Johann
- *
- * Lista dos tokens, com valores constantes associados.
- * Este arquivo serah posterioremente substituido, nao acrescente nada.
- * Os valores das constantes sao arbitrarios, mas nao podem ser alterados.
- * Cada valor deve ser distinto e fora da escala ascii.
- * Assim, nao conflitam entre si e com os tokens representados pelo proprio
- * valor ascii de caracteres isolados.
+ * Compiladores - etapa1 - tokens.h - semestre 2025/1
+ * Autoria: Luís Filipe Martini Gastmann
  */
+
+#ifndef TOKENS_H
+#define TOKENS_H
 
 #define KW_BYTE           256
 #define KW_INT            257
 #define KW_REAL           258
+#define KW_STRING         259
+#define KW_CHAR           260
 
 #define KW_IF             261
 #define KW_ELSE           263
@@ -35,4 +34,4 @@
 
 #define TOKEN_ERROR       290
 
-/* END OF FILE */
+#endif // TOKENS_H

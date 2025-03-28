@@ -1,0 +1,8 @@
+Comandos para rodas com Ubuntu - WSL
+
+$ cd ..
+$ cd ..
+$ cd mnt/c/Users/Lipe/Documents/Github/Compiladores
+$ make clean
+$ make
+$ ./etapa1

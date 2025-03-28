@@ -1,24 +1,23 @@
 // ufrgs - Compiladores 2025-1
-// Autoria: Luís Filipe MArtini Gastmann
+// Autoria: Luís Filipe Martini Gastmann
 // symbols.hpp - tabela de simbolos
+
+#ifndef SYMBOLS_HPP
+#define SYMBOLS_HPP
 
 #include <string>
 
-using namespace std;
-
-string SymbolName[] = {
-    LIERAL_INTEIRO, LITERAL_REAL//, SIMBOLOS... ex.: SYMBOL_WHATEVER, SYMBOL_FODASE, ...
+class Symbol {
+    public:
+        int type;
+        std::string text;
+        
+        Symbol(int t, std::string s) : type(t), text(s) {}
 };
 
-struct symbols  
-    {
-        int type;
-        string text;
-        public:
-        SYMBOL(int i, string s): type(t), text(s) {};
-    };
-
-SYMBOL *symbolInstert(int type, char *text);
+Symbol* symbolInsert(int type, char* text);
 void symbolPrintTable(void);
 
 // END OF FILE
+
+#endif // SYMBOLS_HPP

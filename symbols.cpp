@@ -3,22 +3,26 @@
 #include "symbols.hpp"
 #include <string>
 #include <map>
+#include <cstdio>
 
-map<string, SYMBOL*> SymbolTable;
+static std::map<std::string, Symbol*> SymbolTable;
 
-SYMBOL *symbolInstert (int type, char *text)
-{
-    if (SymbolTable.find(string(text)) != SymbolTable.end())
-        return SymbolTable.find(string(text))->second;
-    SYMBOL *newsymbol = new SYMBOL(type, string(text));
-    SymbolTable[string(text)] = newsymbol;
-    return newsymbol;
+Symbol* symbolInsert(int type, char* text) {
+    std::string key(text);
+    auto it = SymbolTable.find(key);
+    
+    if (it != SymbolTable.end())
+        return it->second;
+        
+    Symbol* newSymbol = new Symbol(type, key);
+    SymbolTable[key] = newSymbol;
+    return newSymbol;
 }
 
-void symbolPrintTable(void)
-{
-    for (auto s: SymbolTable)
-    {
-        printf("Symbol[%d,%s]\n", s.second->type, s.second->text.c_str());
+void symbolPrintTable(void) {
+    for (const auto& entry : SymbolTable) {
+        printf("Symbol[%d,%s]\n", 
+            entry.second->type, 
+            entry.second->text.c_str());
     }
 }
