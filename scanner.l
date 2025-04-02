@@ -41,7 +41,7 @@ char                    return KW_CHAR;
 "=="                    return OPERATOR_EQ;
 "!="                    return OPERATOR_DIF;
 
-[-,;()\[\]{}=+*/<>!&$#]  return yytext[0];
+[-,;()\[\]{}=+*/<>!&|~%]  return yytext[0];
 
 [ \t]+                  ; /* ignore whitespace */
 \n                      { lineNumber++; }
@@ -71,4 +71,8 @@ int isRunning(void) {
 int yywrap() {
     running = 0;
     return 1;
+}
+
+void initMe(void) {
+
 }

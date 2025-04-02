@@ -1,0 +1,10 @@
+int i = 12;;;;;
+string nome = "algum nome"
+/-- blablabla
+outr alinha de comentário
+fim do comentário --/
+char c = "c";
+// mais um comentário
+string fim = "fim";
+| ~ % ;
+# $;
