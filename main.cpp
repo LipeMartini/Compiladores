@@ -52,7 +52,12 @@ int main(int argc, char **argv) {
     printf("-------------\n");
     symbolPrintTable();
     printf("\nTotal lines: %d\n", lineNumber);
+
+    int tok;
+    //yyparse();
     
     fclose(yyin);
+
+
     return 0;
 }

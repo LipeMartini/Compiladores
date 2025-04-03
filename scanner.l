@@ -4,7 +4,9 @@
  */
 
 %{
-#include "tokens.h"
+
+//#include "tokens.h"
+#include "y.tab.h"
 #include "symbols.hpp"
 #include <stdio.h>
 
