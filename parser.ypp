@@ -34,6 +34,7 @@
 %token TOKEN_ERROR
 
 %%
+
 /* nos slides temos A->B, aqui temos A:B "\n" ;      */
 program: TOKEN_ID
     ;
@@ -44,7 +45,6 @@ program: TOKEN_ID
 
 int yyerror (char *s) {
     fprintf (stderr, "%s\n", s);
-    return 1;
+    exit(3);
 }
-
 

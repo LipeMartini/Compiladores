@@ -6,3 +6,16 @@ $ cd mnt/c/Users/Lipe/Documents/Github/Compiladores
 $ make clean
 $ make
 $ ./etapa1
+
+
+
+
+
+
+
+
+
+
+
+lfmgastmann
+Key = zxhygifikpmnxzee

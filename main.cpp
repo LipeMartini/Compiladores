@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "tokens.h"
+#include "y.tab.h"
 #include "symbols.hpp"
 
 extern int lineNumber;
@@ -54,7 +54,8 @@ int main(int argc, char **argv) {
     printf("\nTotal lines: %d\n", lineNumber);
 
     int tok;
-    //yyparse();
+    
+    yyparse();
     
     fclose(yyin);
 
