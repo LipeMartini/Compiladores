@@ -58,14 +58,20 @@ decl_list: decl decl_list
     | decl
     ;
 
-decl: var_decl
+decl: global_var_decl
     | func_decl
     ;
 
-var_decl: type TK_IDENTIFIER ';'
+global_var_decl: type TK_IDENTIFIER ';'
     | type TK_IDENTIFIER '=' literal ';'
     | type TK_IDENTIFIER '[' LIT_INT ']' ';'
     | type TK_IDENTIFIER '[' LIT_INT ']' '=' '{' init_vector '}' ';'
+    ;
+
+var_decl: type TK_IDENTIFIER ';'
+    | type TK_IDENTIFIER '=' expr ';'
+    | type TK_IDENTIFIER '[' expr ']' ';'
+    | type TK_IDENTIFIER '[' expr ']' '=' '{' init_vector '}' ';'
     ;
 
 init_vector: literal_list
@@ -93,23 +99,24 @@ param: type TK_IDENTIFIER
 block: '{' cmd_list '}'
     ;
 
-cmd_list: cmd ';' cmd_list
-    | cmd ';'
-    |
+cmd_list: cmd cmd_list
+    | /* empty */
     ;
 
 cmd: var_decl
-    | TK_IDENTIFIER '=' expr
-    | TK_IDENTIFIER '[' expr ']' '=' expr
-    | KW_READ TK_IDENTIFIER
-    | KW_PRINT '(' expr_list ')'
-    | KW_RETURN expr
+    | assignment ';'
+    | KW_READ TK_IDENTIFIER ';'
+    | KW_PRINT '(' expr_list ')' ';'
+    | KW_RETURN expr ';'
     | KW_IF '(' expr ')' cmd
     | KW_IF '(' expr ')' cmd KW_ELSE cmd
-    | KW_DO cmd KW_WHILE '(' expr ')'
+    | KW_DO cmd KW_WHILE '(' expr ')' ';'
     | block
-    | func_call
-    |
+    | func_call ';'
+    ;
+
+assignment: TK_IDENTIFIER '=' expr
+    | TK_IDENTIFIER '[' expr ']' '=' expr
     ;
 
 expr_list: expr expr_list_tail
@@ -123,7 +130,7 @@ expr_list_tail: ',' expr expr_list_tail
 expr: TK_IDENTIFIER
     | TK_IDENTIFIER '[' expr ']'
     | func_call
-    | literal
+    | '(' expr ')'
     | expr '+' expr
     | expr '-' expr
     | expr '*' expr
@@ -134,22 +141,22 @@ expr: TK_IDENTIFIER
     | expr OPERATOR_GE expr
     | expr OPERATOR_EQ expr
     | expr OPERATOR_DIF expr
-    | '(' expr ')'
+    | literal
     ;
 
 func_call: TK_IDENTIFIER '(' args ')'
     ;
 
-args: expr args_tail
+args: arg_list
     | /* empty */
     ;
 
-args_tail: ',' expr args_tail
-    |
+arg_list: expr
+    | expr ',' arg_list
     ;
 
-literal: LIT_REAL
-    | LIT_INT
+literal: LIT_INT
+    | LIT_REAL
     | LIT_CHAR
     | LIT_STRING
     ;
