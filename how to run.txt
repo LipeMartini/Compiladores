@@ -5,15 +5,20 @@ $ cd ..
 $ cd mnt/c/Users/Lipe/Documents/Github/Compiladores
 $ make clean
 $ make
-$ ./etapa1
+$ ./etapa1             (./etapa2 se for etapa 2, e assim vai)
 
 
 
 
+***************************************************************
 
-
-
-
+entrega etapa 1:
+cd ..
+cd ..
+cd mnt/c/Users/Lipe/Desktop/Facul/2025-1/Compiladores/etapa1
+sftp lfmgastmann@html.inf.ufrgs.br
+cd public_html
+cd zxhygifikpmnxzee
 
 
 

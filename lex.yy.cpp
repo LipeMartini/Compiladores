@@ -364,13 +364,13 @@ struct yy_trans_info
 static const flex_int16_t yy_accept[89] =
     {   0,
         0,    0,   28,   28,   35,   33,   23,   24,   25,   22,
-       33,   22,   33,   22,   14,   22,   22,   22,   13,   13,
+       33,   22,   33,   22,   15,   22,   22,   22,   13,   13,
        13,   13,   13,   13,   13,   13,   13,   13,   28,   30,
-       29,   23,   21,    0,   17,    0,    0,   26,    0,   14,
+       29,   23,   21,    0,   17,    0,    0,   26,    0,   15,
        18,   20,   19,   13,   13,   13,    6,   13,    4,   13,
        13,   13,   13,   13,   28,   29,   29,   16,   27,   26,
-       15,   13,   13,   13,    2,   13,   13,   13,   13,   13,
-       29,   31,    1,   12,    5,   13,    8,    3,   13,   13,
+       14,   13,   13,   13,    3,   13,   13,   13,   13,   13,
+       29,   31,    1,   12,    5,   13,    8,    2,   13,   13,
        13,    9,   13,   13,    7,   10,   11,    0
     } ;
 
@@ -507,16 +507,15 @@ char *yytext;
  */
 #line 7 "scanner.l"
 
-//#include "tokens.h"
-#include "y.tab.h"
+#include "parser.tab.hpp"
 #include "symbols.hpp"
 #include <stdio.h>
 
 int lineNumber = 1;
 int running = 1;
-#line 518 "lex.yy.cpp"
+#line 517 "lex.yy.cpp"
 
-#line 520 "lex.yy.cpp"
+#line 519 "lex.yy.cpp"
 
 #define INITIAL 0
 #define COMMENT 1
@@ -734,10 +733,10 @@ YY_DECL
 		}
 
 	{
-#line 19 "scanner.l"
+#line 18 "scanner.l"
 
 
-#line 741 "lex.yy.cpp"
+#line 740 "lex.yy.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -796,177 +795,177 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 21 "scanner.l"
+#line 20 "scanner.l"
 return KW_BYTE;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 22 "scanner.l"
-return KW_INT;
+#line 21 "scanner.l"
+return KW_REAL;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 23 "scanner.l"
-return KW_REAL;
+#line 22 "scanner.l"
+return KW_INT;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 24 "scanner.l"
+#line 23 "scanner.l"
 return KW_IF;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 25 "scanner.l"
+#line 24 "scanner.l"
 return KW_ELSE;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 26 "scanner.l"
+#line 25 "scanner.l"
 return KW_DO;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "scanner.l"
+#line 26 "scanner.l"
 return KW_WHILE;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 28 "scanner.l"
+#line 27 "scanner.l"
 return KW_READ;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 29 "scanner.l"
+#line 28 "scanner.l"
 return KW_PRINT;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 30 "scanner.l"
+#line 29 "scanner.l"
 return KW_RETURN;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 31 "scanner.l"
+#line 30 "scanner.l"
 return KW_STRING;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 32 "scanner.l"
+#line 31 "scanner.l"
 return KW_CHAR;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 34 "scanner.l"
+#line 33 "scanner.l"
 { symbolInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 36 "scanner.l"
-{ symbolInsert(LIT_INT, yytext); return LIT_INT; }
+#line 35 "scanner.l"
+{ symbolInsert(LIT_REAL, yytext); return LIT_REAL; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 37 "scanner.l"
-{ symbolInsert(LIT_REAL, yytext); return LIT_REAL; }
+#line 36 "scanner.l"
+{ symbolInsert(LIT_INT, yytext); return LIT_INT; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 38 "scanner.l"
+#line 37 "scanner.l"
 { symbolInsert(LIT_CHAR, yytext); return LIT_CHAR; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 39 "scanner.l"
+#line 38 "scanner.l"
 { symbolInsert(LIT_STRING, yytext); return LIT_STRING; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 41 "scanner.l"
+#line 40 "scanner.l"
 return OPERATOR_LE;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 42 "scanner.l"
+#line 41 "scanner.l"
 return OPERATOR_GE;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 43 "scanner.l"
+#line 42 "scanner.l"
 return OPERATOR_EQ;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 44 "scanner.l"
+#line 43 "scanner.l"
 return OPERATOR_DIF;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 46 "scanner.l"
+#line 45 "scanner.l"
 return yytext[0];
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 48 "scanner.l"
+#line 47 "scanner.l"
 ; /* ignore whitespace */
 	YY_BREAK
 case 24:
 /* rule 24 can match eol */
 YY_RULE_SETUP
-#line 49 "scanner.l"
+#line 48 "scanner.l"
 { lineNumber++; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 50 "scanner.l"
+#line 49 "scanner.l"
 ; /* ignore carriage return */
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 52 "scanner.l"
+#line 51 "scanner.l"
 ; /* ignore single-line comments */
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 54 "scanner.l"
+#line 53 "scanner.l"
 BEGIN(COMMENT);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 55 "scanner.l"
+#line 54 "scanner.l"
 ; /* eat anything that's not a '-' */
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 56 "scanner.l"
+#line 55 "scanner.l"
 ; /* eat up '-'s not followed by '/' */
 	YY_BREAK
 case 30:
 /* rule 30 can match eol */
 YY_RULE_SETUP
-#line 57 "scanner.l"
+#line 56 "scanner.l"
 { lineNumber++; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 58 "scanner.l"
+#line 57 "scanner.l"
 BEGIN(INITIAL);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 59 "scanner.l"
+#line 58 "scanner.l"
 ; /* ignore any other character in comment */
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 61 "scanner.l"
+#line 60 "scanner.l"
 return TOKEN_ERROR;
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 63 "scanner.l"
+#line 62 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 970 "lex.yy.cpp"
+#line 969 "lex.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
@@ -1972,7 +1971,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 63 "scanner.l"
+#line 62 "scanner.l"
 
 
 int getLineNumber(void) {

@@ -1,10 +1,17 @@
-int i = 12;;;;;
-string nome = "algum nome"
-/-- blablabla
-outr alinha de comentário
-fim do comentário --/
-char c = "c";
-// mais um comentário
-string fim = "fim";
-| ~ % ;
-# $;
+int x = 10;
+real y = 3.14;
+char c = 'A';
+string msg = "Hello";
+
+int numbers[5] = { 1, 2, 3, 4, 5 };
+
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int result;
+    result = sum(5, 3);
+    print(result);
+    return 0;
+}

@@ -1,50 +1,169 @@
 /*
  *  UFRGS - Compiladores - 2025-1
- *  etapa 2 !
+ *  Etapa 2
  *  Autoria: Luís Filipe Martini Gastmann
  */
 
-%token TOKEN_ID
-%token KW_BYTE           
-%token KW_INT            
-%token KW_REAL           
-%token KW_STRING         
-%token KW_CHAR           
+%{
+#include <stdio.h>
+#include <stdlib.h>
+#include "symbols.hpp"
 
-%token KW_IF             
-%token KW_ELSE           
-%token KW_DO             
-%token KW_WHILE          
-%token KW_READ           
-%token KW_PRINT          
-%token KW_RETURN         
+extern int yylex(void);
+extern int yyparse(void);
+extern int getLineNumber(void);
+extern FILE *yyin;
 
-%token OPERATOR_LE       
-%token OPERATOR_GE       
-%token OPERATOR_EQ       
-%token OPERATOR_DIF      
+int yyerror(char const *s);
+%}
 
-%token TK_IDENTIFIER     
+%left '+' '-'
+%left '*' '/'
+%left '<' '>' OPERATOR_LE OPERATOR_GE OPERATOR_EQ OPERATOR_DIF
 
-%token LIT_INT           
-%token LIT_CHAR          
-%token LIT_REAL          
-%token LIT_STRING        
+%token KW_BYTE
+%token KW_INT
+%token KW_REAL
+%token KW_STRING
+%token KW_CHAR
+
+%token KW_IF
+%token KW_ELSE
+%token KW_DO
+%token KW_WHILE
+%token KW_READ
+%token KW_PRINT
+%token KW_RETURN
+
+%token OPERATOR_LE
+%token OPERATOR_GE
+%token OPERATOR_EQ
+%token OPERATOR_DIF
+
+%token TK_IDENTIFIER
+
+%token LIT_INT
+%token LIT_CHAR
+%token LIT_REAL
+%token LIT_STRING
 
 %token TOKEN_ERROR
 
 %%
 
-/* nos slides temos A->B, aqui temos A:B "\n" ;      */
-program: TOKEN_ID
+program: decl_list
     ;
 
+decl_list: decl decl_list
+    | decl
+    ;
 
+decl: var_decl
+    | func_decl
+    ;
 
- %%
+var_decl: type TK_IDENTIFIER ';'
+    | type TK_IDENTIFIER '=' literal ';'
+    | type TK_IDENTIFIER '[' LIT_INT ']' ';'
+    | type TK_IDENTIFIER '[' LIT_INT ']' '=' '{' init_vector '}' ';'
+    ;
 
-int yyerror (char *s) {
-    fprintf (stderr, "%s\n", s);
+init_vector: literal_list
+    | /* empty */
+    ;
+
+literal_list: literal ',' literal_list
+    | literal
+    ;
+
+func_decl: type TK_IDENTIFIER '(' param_list ')' block
+    ;
+
+param_list: param param_tail
+    |
+    ;
+
+param_tail: ',' param param_tail
+    |
+    ;
+
+param: type TK_IDENTIFIER
+    ;
+
+block: '{' cmd_list '}'
+    ;
+
+cmd_list: cmd ';' cmd_list
+    | cmd ';'
+    |
+    ;
+
+cmd: var_decl
+    | TK_IDENTIFIER '=' expr
+    | TK_IDENTIFIER '[' expr ']' '=' expr
+    | KW_READ TK_IDENTIFIER
+    | KW_PRINT '(' expr_list ')'
+    | KW_RETURN expr
+    | KW_IF '(' expr ')' cmd
+    | KW_IF '(' expr ')' cmd KW_ELSE cmd
+    | KW_DO cmd KW_WHILE '(' expr ')'
+    | block
+    | func_call
+    |
+    ;
+
+expr_list: expr expr_list_tail
+    | /* empty */
+    ;
+
+expr_list_tail: ',' expr expr_list_tail
+    | /* empty */
+    ;
+
+expr: TK_IDENTIFIER
+    | TK_IDENTIFIER '[' expr ']'
+    | func_call
+    | literal
+    | expr '+' expr
+    | expr '-' expr
+    | expr '*' expr
+    | expr '/' expr
+    | expr '<' expr
+    | expr '>' expr
+    | expr OPERATOR_LE expr
+    | expr OPERATOR_GE expr
+    | expr OPERATOR_EQ expr
+    | expr OPERATOR_DIF expr
+    | '(' expr ')'
+    ;
+
+func_call: TK_IDENTIFIER '(' args ')'
+    ;
+
+args: expr args_tail
+    | /* empty */
+    ;
+
+args_tail: ',' expr args_tail
+    |
+    ;
+
+literal: LIT_REAL
+    | LIT_INT
+    | LIT_CHAR
+    | LIT_STRING
+    ;
+
+type: KW_BYTE
+    | KW_REAL
+    | KW_INT    
+    | KW_STRING
+    | KW_CHAR
+    ;
+
+%%
+
+int yyerror(char const *s) {
+    fprintf(stderr, "Error on line %d: %s\n", getLineNumber(), s);
     exit(3);
 }
-

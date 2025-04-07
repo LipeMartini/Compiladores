@@ -5,8 +5,7 @@
 
 %{
 
-//#include "tokens.h"
-#include "y.tab.h"
+#include "parser.tab.hpp"
 #include "symbols.hpp"
 #include <stdio.h>
 
@@ -19,8 +18,8 @@ int running = 1;
 %%
 
 byte                    return KW_BYTE;
-int                     return KW_INT;
 real                    return KW_REAL;
+int                     return KW_INT;
 if                      return KW_IF;
 else                    return KW_ELSE;
 do                      return KW_DO;
