@@ -4,7 +4,9 @@
  */
 
 %{
-#include "tokens.h"
+
+//#include "tokens.h"
+#include "y.tab.h"
 #include "symbols.hpp"
 #include <stdio.h>
 
@@ -31,8 +33,8 @@ char                    return KW_CHAR;
 
 [a-zA-Z_][a-zA-Z0-9_]*  { symbolInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER; }
 
-[0-9]+                  { symbolInsert(LIT_INT, yytext); return LIT_INT; }
 [0-9]+\.[0-9]+         { symbolInsert(LIT_REAL, yytext); return LIT_REAL; }
+[0-9]+                 { symbolInsert(LIT_INT, yytext); return LIT_INT; }
 '.'                     { symbolInsert(LIT_CHAR, yytext); return LIT_CHAR; }
 \"[^"\n]*\"            { symbolInsert(LIT_STRING, yytext); return LIT_STRING; }
 
