@@ -65,13 +65,13 @@ decl: global_var_decl
 global_var_decl: type TK_IDENTIFIER ';'
     | type TK_IDENTIFIER '=' literal ';'
     | type TK_IDENTIFIER '[' LIT_INT ']' ';'
-    | type TK_IDENTIFIER '[' LIT_INT ']' '=' '{' init_vector '}' ';'
+    | type TK_IDENTIFIER '[' LIT_INT ']' '=' init_vector ';'
     ;
 
 var_decl: type TK_IDENTIFIER ';'
     | type TK_IDENTIFIER '=' expr ';'
     | type TK_IDENTIFIER '[' expr ']' ';'
-    | type TK_IDENTIFIER '[' expr ']' '=' '{' init_vector '}' ';'
+    | type TK_IDENTIFIER '[' expr ']' '=' init_vector ';'
     ;
 
 init_vector: literal_list
@@ -106,13 +106,15 @@ cmd_list: cmd cmd_list
 cmd: var_decl
     | assignment ';'
     | KW_READ TK_IDENTIFIER ';'
-    | KW_PRINT '(' expr_list ')' ';'
+    | KW_PRINT expr_list ';'
     | KW_RETURN expr ';'
     | KW_IF '(' expr ')' cmd
     | KW_IF '(' expr ')' cmd KW_ELSE cmd
     | KW_DO cmd KW_WHILE '(' expr ')' ';'
+    | KW_WHILE cmd KW_DO '(' expr ')' ';'
     | block
     | func_call ';'
+    |
     ;
 
 assignment: TK_IDENTIFIER '=' expr

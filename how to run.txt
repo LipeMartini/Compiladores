@@ -16,6 +16,7 @@ entrega etapa 1:
 cd ..
 cd ..
 cd mnt/c/Users/Lipe/Desktop/Facul/2025-1/Compiladores/etapa1
+tar cvzf etapa2.tgz .
 sftp lfmgastmann@html.inf.ufrgs.br
 cd public_html
 cd zxhygifikpmnxzee
