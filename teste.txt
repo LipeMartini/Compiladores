@@ -5,8 +5,8 @@ char flag = 'Y';
 string message = "Hello, World!";
 
 // Teste de arrays
-int numbers[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-char vowels[5] = { 'a', 'e', 'i', 'o', 'u' };
+int numbers[10] =  0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ;
+char vowels[5] =  'a', 'e', 'i', 'o', 'u' ;
 
 // Teste de função com múltiplos parâmetros
 int calculate(int a, int b, int c) {
@@ -34,25 +34,25 @@ int main() {
     
     // Teste de if-else
     if (x < y) {
-        print("x é menor que y");
+        print "x é menor que y";
     } else {
-        print("x é maior ou igual a y");
+        print "x é maior ou igual a y";
     }
     
     // Teste de do-while
     do {
         x = x + 1;
-        print(x);
+        print x;
     } while (x < 15);
     
     // Teste de chamada de função
     result = calculate(x, y, 5);
-    print("Resultado:");
-    print(result);
+    print "Resultado:";
+    print result;
     
     // Teste de array
     numbers[0] = get_magic_number();
-    print(numbers[0]);
+    print numbers[0];
     
     // Teste de read
     read option;
@@ -64,7 +64,7 @@ int main() {
     if (result <= 100) {
         if (result >= 50) {
             if (result == 75) {
-                print("result é 75");
+                print "result é 75";
             }
         }
     }
