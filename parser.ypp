@@ -111,10 +111,10 @@ cmd: var_decl
     | KW_IF '(' expr ')' cmd
     | KW_IF '(' expr ')' cmd KW_ELSE cmd
     | KW_DO cmd KW_WHILE '(' expr ')' ';'
-    | KW_WHILE cmd KW_DO '(' expr ')' ';'
+    | KW_WHILE '(' expr ')' KW_DO cmd ';'
     | block
     | func_call ';'
-    |
+    | ';'
     ;
 
 assignment: TK_IDENTIFIER '=' expr
