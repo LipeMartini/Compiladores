@@ -75,7 +75,7 @@ var_decl: type TK_IDENTIFIER ';'
     ;
 
 init_vector: literal_list
-    | /* empty */
+    | ';'
     ;
 
 literal_list: literal ',' literal_list
@@ -86,11 +86,11 @@ func_decl: type TK_IDENTIFIER '(' param_list ')' block
     ;
 
 param_list: param param_tail
-    |
+    | ';'
     ;
 
 param_tail: ',' param param_tail
-    |
+    | ';'
     ;
 
 param: type TK_IDENTIFIER
@@ -100,7 +100,7 @@ block: '{' cmd_list '}'
     ;
 
 cmd_list: cmd cmd_list
-    | /* empty */
+    | ';'
     ;
 
 cmd: var_decl
@@ -110,8 +110,8 @@ cmd: var_decl
     | KW_RETURN expr ';'
     | KW_IF '(' expr ')' cmd
     | KW_IF '(' expr ')' cmd KW_ELSE cmd
-    | KW_DO cmd KW_WHILE '(' expr ')' ';'
-    | KW_WHILE '(' expr ')' KW_DO cmd ';'
+    | KW_WHILE expr KW_DO cmd
+    | KW_DO cmd KW_WHILE expr ';'
     | block
     | func_call ';'
     | ';'
@@ -122,11 +122,11 @@ assignment: TK_IDENTIFIER '=' expr
     ;
 
 expr_list: expr expr_list_tail
-    | /* empty */
+    | ';'
     ;
 
 expr_list_tail: ',' expr expr_list_tail
-    | /* empty */
+    | ';'
     ;
 
 expr: TK_IDENTIFIER
@@ -139,6 +139,8 @@ expr: TK_IDENTIFIER
     | expr '/' expr
     | expr '<' expr
     | expr '>' expr
+    | expr '=' expr
+    | expr '!=' expr
     | expr OPERATOR_LE expr
     | expr OPERATOR_GE expr
     | expr OPERATOR_EQ expr
@@ -150,7 +152,7 @@ func_call: TK_IDENTIFIER '(' args ')'
     ;
 
 args: arg_list
-    | /* empty */
+    | ';'
     ;
 
 arg_list: expr

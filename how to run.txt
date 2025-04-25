@@ -17,7 +17,7 @@ cd ..
 cd ..
 cd mnt/c/Users/Lipe/Desktop/Facul/2025-1/Compiladores/etapa2
 tar cvzf etapa2.tgz .
-sftp lfmgastmann@html.inf.ufrgs.br
+sftp lfmgastmann@html.inf.ufrgs.br                 "Presunto14@"
 cd public_html
 cd zxhygifikpmnxzee
 put etapa2.tgz
