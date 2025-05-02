@@ -5,7 +5,7 @@ $ cd ..
 $ cd mnt/c/Users/Lipe/Documents/Github/Compiladores
 $ make clean
 $ make
-$ ./etapa1             (./etapa2 se for etapa 2, e assim vai)
+$ ./etapa2             (./etapa2 se for etapa 2, e assim vai)
 
 
 

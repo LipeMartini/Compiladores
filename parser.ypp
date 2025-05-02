@@ -63,44 +63,45 @@ decl: global_var_decl
     ;
 
 global_var_decl: type TK_IDENTIFIER ';'
-    | type TK_IDENTIFIER '=' literal ';'
+    | type TK_IDENTIFIER '=' expr ';'
     | type TK_IDENTIFIER '[' LIT_INT ']' ';'
-    | type TK_IDENTIFIER '[' LIT_INT ']' '=' init_vector ';'
+    | type TK_IDENTIFIER '[' LIT_INT ']' '=' literal_list ';'
     ;
 
 var_decl: type TK_IDENTIFIER ';'
     | type TK_IDENTIFIER '=' expr ';'
     | type TK_IDENTIFIER '[' expr ']' ';'
-    | type TK_IDENTIFIER '[' expr ']' '=' init_vector ';'
+    | type TK_IDENTIFIER '[' expr ']' '=' literal_list ';'
     ;
 
 init_vector: literal_list
-    | ';'
+    | /* empty */
     ;
 
-literal_list: literal ',' literal_list
-    | literal
+literal_list: literal
+    | literal ',' literal_list
     ;
 
 func_decl: type TK_IDENTIFIER '(' param_list ')' block
     ;
 
 param_list: param param_tail
-    | ';'
+    | /* empty */
     ;
 
 param_tail: ',' param param_tail
-    | ';'
+    | /* empty */
     ;
 
 param: type TK_IDENTIFIER
     ;
 
 block: '{' cmd_list '}'
+    | '{' '}'
     ;
 
 cmd_list: cmd cmd_list
-    | ';'
+    | /* empty */
     ;
 
 cmd: var_decl
@@ -111,7 +112,7 @@ cmd: var_decl
     | KW_IF '(' expr ')' cmd
     | KW_IF '(' expr ')' cmd KW_ELSE cmd
     | KW_WHILE expr KW_DO cmd
-    | KW_DO cmd KW_WHILE expr ';'
+    | KW_DO cmd KW_WHILE '(' expr ')' ';'
     | block
     | func_call ';'
     | ';'
@@ -122,11 +123,11 @@ assignment: TK_IDENTIFIER '=' expr
     ;
 
 expr_list: expr expr_list_tail
-    | ';'
+    | /* empty */
     ;
 
-expr_list_tail: ',' expr expr_list_tail
-    | ';'
+expr_list_tail: expr expr_list_tail
+    | /* empty */
     ;
 
 expr: TK_IDENTIFIER
@@ -145,7 +146,10 @@ expr: TK_IDENTIFIER
     | expr OPERATOR_GE expr
     | expr OPERATOR_EQ expr
     | expr OPERATOR_DIF expr
-    | literal
+    | LIT_INT
+    | LIT_REAL
+    | LIT_CHAR
+    | LIT_STRING
     ;
 
 func_call: TK_IDENTIFIER '(' args ')'

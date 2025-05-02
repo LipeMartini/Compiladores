@@ -1,73 +1,72 @@
-// Teste de declarações globais
-int global_int = 42;
-real pi = 3.14159;
-char flag = 'Y';
-string message = "Hello, World!";
+byte a = 51;
+byte b = 'x';
+byte c = 001;
+int number = 'A';
+int x = 1;
+int y = 1;
 
-// Teste de arrays
-int numbers[10] =  0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ;
-char vowels[5] =  'a', 'e', 'i', 'o', 'u' ;
+// declaracao de um vetor de 10 posicoes, inicializado
 
-// Teste de função com múltiplos parâmetros
-int calculate(int a, int b, int c) {
-    int temp;
-    temp = a * b;
-    return temp + c;
-}
+int v[01] = 'a',0,'b',0,0,0,0,0,0,0;
 
-// Teste de função sem parâmetros
-int get_magic_number() {
-    return 42;
-}
+// declaracao de uma matriz de 100 posicoes, nao inicializada
 
-// Função principal com diversos comandos
-int main() {
-    // Declarações locais
-    int x;
-    int y;
-    int result;
-    char option;
-    
-    // Atribuições
-    x = 10;
-    y = 20;
-    
-    // Teste de if-else
-    if (x < y) {
-        print "x é menor que y";
-    } else {
-        print "x é maior ou igual a y";
+int matrix[001]; 
+
+
+real num = 5/7;	// note que 5/7 nao eh uma expressao, eh um literal real
+
+/--
+Este eh um comentario 
+de multiplas 
+linhas
+--/
+
+int main ()
+  {
+  number = 0;
+  c = 7 - 1;
+  c = 5;
+  v[7] = 55;
+  print v[5] 7 c;
+  number = 2;
+
+  print "Digite um numero: \n";
+  read number;
+
+  while x<02 do
+    {
+    x = x + 1;
+    print ".";
     }
+
+  x = 1;
+  do
+    {
+    x = incn(x,1);
+    y = incn(y,y);
+    } while (x<01);
+
+  print "Dobrando algumas vezes y fica " y "\n";
+
+  if (a=51) 
+    {
+    a = a + 1;
+    print "A era=15\n";
+    };
     
-    // Teste de do-while
-    do {
-        x = x + 1;
-        print x;
-    } while (x < 15);
-    
-    // Teste de chamada de função
-    result = calculate(x, y, 5);
-    print "Resultado:";
-    print result;
-    
-    // Teste de array
-    numbers[0] = get_magic_number();
-    print numbers[0];
-    
-    // Teste de read
-    read option;
-    
-    // Teste de expressões complexas
-    result = (x + y) * (result - get_magic_number()) / 2;
-    
-    // Teste de operadores relacionais
-    if (result <= 100) {
-        if (result >= 50) {
-            if (result == 75) {
-                print "result é 75";
-            }
-        }
+  if (x=100)
+    {
+    print "Nao tem como isso...\n";
     }
-    
-    return 0;
-}
+  else
+    print "OK!\n"; 
+  {{}} {}
+  }
+
+int incn (int p, int n )
+  {
+  return p + n;
+  }
+
+// end of file
