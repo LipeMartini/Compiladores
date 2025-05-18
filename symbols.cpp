@@ -7,7 +7,7 @@
 
 static std::map<std::string, Symbol*> SymbolTable;
 
-Symbol* symbolInsert(int type, char* text) {
+Symbol* symbolInsert(int type, const char* text) {
     std::string key(text);
     auto it = SymbolTable.find(key);
     

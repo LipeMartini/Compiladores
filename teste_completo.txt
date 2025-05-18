@@ -1,0 +1,47 @@
+// Teste completo para verificar todas as funcionalidades
+byte a = 0;
+int v[10] = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+real f = 10.5;
+char c = 'x';
+string s = "teste";
+
+int main() {
+    // Teste de declaração de variáveis locais
+    int i = 0;
+    
+    // Teste de atribuição
+    i = 5;
+    v[3] = 42;
+    
+    // Teste de comandos de controle
+    if (i < 10) {
+        print "i menor que 10";
+    } else {
+        print "i maior ou igual a 10";
+    }
+    
+    // Teste de loop
+    while (i > 0) do {
+        i = i - 1;
+        print i;
+    }
+    
+    // Teste do-while
+    do {
+        i = i + 1;
+        print i;
+    } while (i < 5);
+    
+    // Teste de acesso a vetor
+    print v[5];
+    
+    // Teste de chamada de função
+    print soma(3, 4);
+    
+    // Teste de return
+    return 0;
+}
+
+int soma(int a, int b) {
+    return a + b;
+}

@@ -9,13 +9,14 @@
 
 class Symbol {
     public:
+        int token; // tipo do token associado ao símbolo (ex: KW_BYTE, KW_INT, ...)
         int type;
         std::string text;
         
-        Symbol(int t, std::string s) : type(t), text(s) {}
+        Symbol(int t, std::string s) : token(0), type(t), text(s) {}
 };
 
-Symbol* symbolInsert(int type, char* text);
+Symbol* symbolInsert(int type, const char* text);
 void symbolPrintTable(void);
 
 // END OF FILE

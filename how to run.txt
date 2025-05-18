@@ -15,12 +15,12 @@ $ ./etapa2             (./etapa2 se for etapa 2, e assim vai)
 entrega etapa 2:
 cd ..
 cd ..
-cd mnt/c/Users/Lipe/Desktop/Facul/2025-1/Compiladores/etapa2
-tar cvzf etapa2.tgz .
+cd mnt/c/Users/Lipe/Desktop/Facul/2025-1/Compiladores/etapa3
+tar cvzf etapa3.tgz .
 sftp lfmgastmann@html.inf.ufrgs.br                 "Presunto14@"
 cd public_html
 cd zxhygifikpmnxzee
-put etapa2.tgz
+put etapa3.tgz
 
 
 lfmgastmann
