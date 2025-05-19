@@ -5,22 +5,22 @@ $ cd ..
 $ cd mnt/c/Users/Lipe/Documents/Github/Compiladores
 $ make clean
 $ make
-$ ./etapa2             (./etapa2 se for etapa 2, e assim vai)
+$ ./etapa4 teste.txt saida.txt
 
 
 
 
 ***************************************************************
 
-entrega etapa 2:
+entrega etapa 4:
 cd ..
 cd ..
-cd mnt/c/Users/Lipe/Desktop/Facul/2025-1/Compiladores/etapa3
-tar cvzf etapa3.tgz .
+cd mnt/c/Users/Lipe/Desktop/Facul/2025-1/Compiladores/etapa4
+tar cvzf etapa4.tgz .
 sftp lfmgastmann@html.inf.ufrgs.br                 "Presunto14@"
 cd public_html
 cd zxhygifikpmnxzee
-put etapa3.tgz
+put etapa4.tgz
 
 
 lfmgastmann

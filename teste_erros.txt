@@ -1,0 +1,65 @@
+// Arquivo de teste com erros semânticos intencionais
+
+// Declarações globais
+byte a = 0;
+int v[10] = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+real f = 10.5;
+char c = 'x';
+string s = "teste";
+
+// ERRO 1: Variável já declarada (redeclaração)
+byte a = 5;
+
+// ERRO 2: Tipo incompatível na inicialização
+int x = "string";
+
+// ERRO 3: Índice de vetor inválido (não é inteiro)
+int vetor[f] = 0, 1, 2;
+
+int main() {
+    // ERRO 4: Variável não declarada
+    z = 10;
+    
+    // ERRO 5: Atribuição com tipo incompatível
+    a = "texto";
+    
+    // ERRO 6: Acesso a vetor com índice não inteiro
+    v[f] = 42;
+    
+    // ERRO 7: Acesso a variável escalar como vetor
+    a[5] = 10;
+    
+    // ERRO 8: Operação com tipos incompatíveis
+    f = a + s;
+    
+    // ERRO 9: Chamada de função com número incorreto de argumentos
+    print soma(3, 4, 5);
+    
+    // ERRO 10: Chamada de função com tipos incompatíveis
+    print soma("texto", 4);
+    
+    // ERRO 11: Chamada de função não declarada
+    print funcao_inexistente();
+    
+    // ERRO 12: Condição não booleana em if
+    if (s) {
+        print "Erro";
+    }
+    
+    // ERRO 13: Condição não booleana em while
+    while (c) do {
+        print "Erro";
+    }
+    
+    return 0;
+}
+
+int soma(int a, int b) {
+    // ERRO 14: Retorno com tipo incompatível
+    return "resultado";
+}
+
+// ERRO 15: Função com mesmo nome de variável
+int a() {
+    return 0;
+}

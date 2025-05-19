@@ -10,6 +10,9 @@
 #include "symbols.hpp"
 #include "ast.h"
 
+// Variável global para a raiz da AST
+AST* ast_root = NULL;
+
 extern int yylex(void);
 extern int yyparse(void);
 extern int getLineNumber(void);
@@ -62,10 +65,8 @@ int yyerror(char const *s);
 %%
 
 program: decl_list {
+    ast_root = $1;
     astPrint($1, 0);
-    printf("\n=== DECOMPILADO ===\n");
-    astDecompile($1, ast_output_file);
-    printf("\n===================\n");
 }
     ;
 

@@ -1,0 +1,36 @@
+=== DECOMPILADO ===
+
+byte a = 0;
+int v[10] = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+real f = 10.5;
+char c = 'x';
+string s = "teste";
+byte a = 5;
+int x = "string";
+int vetor[f] = 0, 1, 2;
+int main() {
+    z = 10;
+    a = "texto";
+    v[f] = 42;
+    a[5] = 10;
+    f = (a + s);
+    print soma(3, 4, 5);
+    print soma("texto", 4);
+    print funcao_inexistente();
+    if (s) 
+    {
+      print "Erro";
+    }
+    while (c) do
+    {
+      print "Erro";
+    }
+    return 0;
+}
+int soma(int a, int b) {
+    return "resultado";
+}
+int a() {
+    return 0;
+}
+===================

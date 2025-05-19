@@ -42,6 +42,8 @@ typedef struct ast_node {
 AST* astCreate(AstNodeType type, const void* symbol, AST* son0, AST* son1, AST* son2, AST* son3);
 void astPrint(AST* node, int level);
 void astDecompile(AST* node, FILE* out);
+void astDecompileSimple(AST* node, FILE* out);
+void decompileCommands(AST* cmd, FILE* out, int indent);
 void astFree(AST* node);
 
 #endif // AST_H
