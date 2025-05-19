@@ -39,6 +39,19 @@ void semanticAnalysis(AST* node) {
             }
             break;
             
+        case AST_IF:
+        case AST_IF_ELSE:
+        case AST_WHILE:
+        case AST_DO_WHILE:
+            // Verificar condições em estruturas de controle
+            checkControlStructure(node);
+            break;
+            
+        case AST_RETURN:
+            // Verificar tipos de retorno em funções
+            checkReturn(node);
+            break;
+            
         default:
             // Para outros tipos de nós, não há verificação específica
             break;

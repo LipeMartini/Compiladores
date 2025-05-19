@@ -72,6 +72,8 @@ bool checkVectorIndex(void* node);
 bool checkFunctionCall(void* node);
 bool checkDeclaration(void* node);
 bool checkAssignment(void* node);
+bool checkControlStructure(void* node);
+bool checkReturn(void* node);
 int getSemanticErrorCount(void);
 
 // END OF FILE

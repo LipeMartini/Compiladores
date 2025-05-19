@@ -336,9 +336,19 @@ bool checkFunctionCall(void* node) {
     // Verificar se a função existe na tabela de símbolos
     Symbol* funcSymbol = findFunction(symbol->text.c_str());
     
-    // Se a função não existe, não reportar erro (pode ser declarada depois)
+    // Se a função não existe, reportar erro
     if (!funcSymbol) {
-        return true;
+        // Verificar se existe algum símbolo com esse nome
+        Symbol* anySymbol = symbolFind(symbol->text.c_str());
+        if (anySymbol) {
+            // Se existe um símbolo com esse nome, mas não é uma função
+            std::cerr << "Semantic error: Symbol '" << symbol->text << "' is not a function" << std::endl;
+        } else {
+            // Se não existe nenhum símbolo com esse nome
+            std::cerr << "Semantic error: Function '" << symbol->text << "' not declared" << std::endl;
+        }
+        semanticErrors++;
+        return false;
     }
     
     // Se o símbolo não é uma função, reportar erro
@@ -374,7 +384,7 @@ bool checkFunctionCall(void* node) {
         DataType argType = getExpressionType(arg);
         DataType paramType = funcSymbol->parameters[i].dataType;
         
-        // Ignorar verificação se algum tipo for indefinido
+        // Verificar compatibilidade de tipos mesmo se algum tipo for indefinido
         if (argType != DATATYPE_UNDEFINED && paramType != DATATYPE_UNDEFINED && 
             !isTypeCompatible(argType, paramType)) {
             std::cerr << "Semantic error: Incompatible argument type for parameter '" << funcSymbol->parameters[i].name << "'" << std::endl;
@@ -437,42 +447,40 @@ bool checkDeclaration(void* node) {
                     }
                 }
             } else {
-                // Variável escalar com inicialização: int a = 5;
-                symbol->nature = SYMBOL_SCALAR;
+                // Verificar se é um vetor sem inicialização: int v[10];
+                AST* sizeNode = ast->son[0];
+                Symbol* sizeSymbol = nullptr;
                 
-                // Verificar compatibilidade do valor inicial
-                DataType initType = getExpressionType(ast->son[0]);
-                if (initType != DATATYPE_UNDEFINED && !isTypeCompatible(symbol->dataType, initType)) {
-                    std::cerr << "Semantic error: Incompatible initialization for '" << symbol->text << "'" << std::endl;
-                    semanticErrors++;
+                if (sizeNode->type == AST_SYMBOL && sizeNode->symbol) {
+                    sizeSymbol = (Symbol*)sizeNode->symbol;
+                    if (sizeSymbol->token == LIT_INT) {
+                        // É um vetor com tamanho definido por literal inteiro
+                        symbol->nature = SYMBOL_VECTOR;
+                        symbol->vectorSize = std::stoi(sizeSymbol->text);
+                    } else {
+                        // É uma variável escalar com inicialização
+                        symbol->nature = SYMBOL_SCALAR;
+                        
+                        // Verificar inicialização
+                        DataType initType = getExpressionType(ast->son[0]);
+                        if (initType != DATATYPE_UNDEFINED && symbol->dataType != DATATYPE_UNDEFINED && 
+                            !isTypeCompatible(symbol->dataType, initType)) {
+                            std::cerr << "Semantic error: Incompatible initialization for '" << symbol->text << "'" << std::endl;
+                            semanticErrors++;
+                        }
+                    }
+                } else {
+                    // Verificar se o tamanho do vetor é um inteiro
+                    DataType sizeType = getExpressionType(ast->son[0]);
+                    if (sizeType != DATATYPE_UNDEFINED && sizeType != DATATYPE_INT && 
+                        sizeType != DATATYPE_BYTE && sizeType != DATATYPE_CHAR) {
+                        std::cerr << "Semantic error: Vector size must be an integer for '" << symbol->text << "'" << std::endl;
+                        semanticErrors++;
+                    }
+                    
+                    // É um vetor com tamanho definido por expressão
+                    symbol->nature = SYMBOL_VECTOR;
                 }
-            }
-        } else if (ast->son[0] && ast->son[1]) {
-            // Vetor com inicialização: int v[10] = 0, 1, 2, ...;
-            symbol->nature = SYMBOL_VECTOR;
-            
-            // Obter tamanho do vetor
-            Symbol* sizeSymbol = nullptr;
-            if (ast->son[0]->type == AST_SYMBOL)
-                sizeSymbol = (Symbol*)ast->son[0]->symbol;
-            
-            if (sizeSymbol) {
-                try {
-                    symbol->vectorSize = std::stoi(sizeSymbol->text);
-                } catch (...) {
-                    symbol->vectorSize = 0;
-                }
-            }
-            
-            // Verificar compatibilidade dos valores iniciais
-            AST* init = ast->son[1];
-            while (init) {
-                DataType initType = getExpressionType(init);
-                if (initType != DATATYPE_UNDEFINED && !isTypeCompatible(symbol->dataType, initType)) {
-                    std::cerr << "Semantic error: Incompatible initialization for vector '" << symbol->text << "'" << std::endl;
-                    semanticErrors++;
-                }
-                init = init->next;
             }
         } else {
             // Variável escalar sem inicialização: int a;
@@ -571,6 +579,89 @@ bool checkAssignment(void* node) {
     if (leftType != DATATYPE_UNDEFINED && rightType != DATATYPE_UNDEFINED && 
         !isTypeCompatible(leftType, rightType)) {
         std::cerr << "Semantic error: Incompatible types in assignment to '" << symbol->text << "'" << std::endl;
+        semanticErrors++;
+        return false;
+    }
+    
+    return true;
+}
+
+// Função para verificar condições em estruturas de controle
+bool checkControlStructure(void* node) {
+    if (!node) return false;
+    
+    AST* ast = (AST*)node;
+    
+    // Verificar se o nó é uma estrutura de controle
+    if (ast->type != AST_IF && ast->type != AST_IF_ELSE && 
+        ast->type != AST_WHILE && ast->type != AST_DO_WHILE)
+        return false;
+    
+    // Obter nó da condição
+    AST* condition = nullptr;
+    switch (ast->type) {
+        case AST_IF:
+        case AST_IF_ELSE:
+        case AST_WHILE:
+            condition = ast->son[0];
+            break;
+        case AST_DO_WHILE:
+            condition = ast->son[1];
+            break;
+        default:
+            return false;
+    }
+    
+    if (!condition) return false;
+    
+    // Verificar se a condição é booleana ou pode ser convertida para booleana
+    DataType condType = getExpressionType(condition);
+    if (condType != DATATYPE_UNDEFINED && condType != DATATYPE_BOOLEAN && 
+        condType != DATATYPE_INT && condType != DATATYPE_BYTE && condType != DATATYPE_CHAR) {
+        std::cerr << "Semantic error: Condition must be a boolean or numeric expression" << std::endl;
+        semanticErrors++;
+        return false;
+    }
+    
+    return true;
+}
+
+// Função para verificar tipos de retorno em funções
+bool checkReturn(void* node) {
+    if (!node) return false;
+    
+    AST* ast = (AST*)node;
+    
+    // Verificar se o nó é um comando de retorno
+    if (ast->type != AST_RETURN)
+        return false;
+    
+    // Obter a função atual
+    // Isso é uma simplificação, idealmente deveríamos ter um escopo para saber em qual função estamos
+    AST* parent = ast;
+    while (parent && parent->type != AST_FUNC_DECL) {
+        // Tentar encontrar o nó pai que é uma declaração de função
+        // Isso é uma simplificação e pode não funcionar em todos os casos
+        parent = (AST*)parent->symbol; // Usar symbol como ponteiro para o pai (simplificação)
+    }
+    
+    if (!parent || !parent->symbol) return false;
+    
+    Symbol* funcSymbol = (Symbol*)parent->symbol;
+    if (funcSymbol->nature != SYMBOL_FUNCTION) return false;
+    
+    // Verificar se o tipo de retorno é compatível com o tipo da função
+    if (ast->son[0]) {
+        DataType returnType = getExpressionType(ast->son[0]);
+        if (returnType != DATATYPE_UNDEFINED && funcSymbol->returnType != DATATYPE_UNDEFINED && 
+            !isTypeCompatible(funcSymbol->returnType, returnType)) {
+            std::cerr << "Semantic error: Incompatible return type in function '" << funcSymbol->text << "'" << std::endl;
+            semanticErrors++;
+            return false;
+        }
+    } else if (funcSymbol->returnType != DATATYPE_UNDEFINED) {
+        // Retorno vazio em função que deveria retornar um valor
+        std::cerr << "Semantic error: Missing return value in function '" << funcSymbol->text << "'" << std::endl;
         semanticErrors++;
         return false;
     }
