@@ -8,7 +8,7 @@ int x = 1;
 int y = 1;
 int v[01] = 'a', 0, 'b', 0, 0, 0, 0, 0, 0, 0;
 int matrix = 001;
-real num = (5 / 7);
+real num[(5 / 7)];
 int main() {
     number = 0;
     c = (7 - 1);

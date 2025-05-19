@@ -111,6 +111,7 @@ int main(int argc, char **argv) {
         exit(3);  // Código 3: erro de sintaxe
     }
     
+    printf("\nAnálise semântica...\n\n");
     // Realizar análise semântica
     semanticAnalysis(ast_root);
     
@@ -125,7 +126,7 @@ int main(int argc, char **argv) {
     
     // Imprimir tabela de símbolos
     symbolPrintTable();
-    
+
     // Verificar se houve erros semânticos
     int semantic_errors = getSemanticErrorCount();
     if (semantic_errors > 0) {
