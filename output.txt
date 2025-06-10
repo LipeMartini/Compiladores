@@ -1,0 +1,37 @@
+=== DECOMPILADO ===
+
+byte a = 0;
+int v[10] = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9;
+real f = 10.5;
+char c = 'x';
+string s = "teste";
+int main() {
+        i = 5;
+    v[3] = 42;
+    if ((i < 10)) 
+    {
+      print "i menor que 10";
+    }
+    else 
+    {
+      print "i maior ou igual a 10";
+    }
+    while ((i > 0)) do
+    {
+      i = (i - 1);
+      print i;
+    }
+    do
+    {
+      i = (i + 1);
+      print i;
+    }
+    while ((i < 5));
+    print v[5];
+    print soma(3, 4);
+    return 0;
+}
+int soma(int a, int b) {
+    return (a + b);
+}
+===================

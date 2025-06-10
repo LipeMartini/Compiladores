@@ -3,6 +3,7 @@
 #include <cstring>
 #include "symbols.hpp"
 #include "ast.h"
+#include "tacs.hpp"
 
 FILE* ast_output_file = nullptr;
 extern AST* ast_root;
@@ -119,6 +120,23 @@ int main(int argc, char **argv) {
     if (ast_root) {
         // Usar a nova função simplificada para descompilação
         astDecompileSimple(ast_root, out);
+        
+        // Etapa 5: Geração de código intermediário (TACs)
+        fprintf(stderr, "\nGenerating intermediate code (TACs)...\n\n");
+        TAC* code = generateCode(ast_root);
+        
+        // Imprimir TACs
+        if (code) {
+            fprintf(stderr, "\nIntermediate Code:\n\n");
+            // Usar tacPrint para imprimir cada TAC na ordem correta
+            TAC* current = code;
+            while (current) {
+                tacPrint(current);
+                current = current->next;
+            }
+        } else {
+            fprintf(stderr, "No TACs generated!\n");
+        }
     }
     
     fclose(yyin);
